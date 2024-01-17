@@ -15,15 +15,18 @@ def toh(n, start, end, aux): # from start -> end with the help of aux peg
         toh(n-1, start, aux, end)
 
         # move the nth disk from start peg to end peg
+        writer = print_info(n, start, end)
         sleep(1) # to visualize what is happening on the screen lol!
         move_disk(n, start, end)
-        print(f"Moved disk {n} from peg {start} to {end}")
+        sleep(1)
+        writer.clear()
 
         # move the n-1 discs from aux to end peg
         toh(n-1, aux, end, start)
 
 def draw_peg(x, y, color, label):
     peg = turtle.Turtle()
+    peg.hideturtle()
 
     peg.color(color)
     peg.penup()
@@ -50,7 +53,6 @@ def draw_peg(x, y, color, label):
     peg.forward(500)
     peg.left(90)
     peg.penup()
-    peg.hideturtle()
 
 def draw_pegs():
     draw_peg(peg_positions['A'], -200, 'blue', 'Peg A')
@@ -60,6 +62,7 @@ def draw_pegs():
 def draw_disk(peg, size):
     disk_width = (size * DISK_HEIGHT) + 50 # so that the smallest disk is at least thet width of center rod
     disk = turtle.Turtle()
+    disk.hideturtle()
 
     # position of disk on the corresponding peg
     # peg ko base ko size 150 xa, disk ko size (size * DISK_HEIGHT xa), now disk lai center ma lagna paryo
@@ -80,8 +83,6 @@ def draw_disk(peg, size):
         disk.forward(DISK_HEIGHT)
         disk.left(90)
     disk.end_fill()
-
-    disk.hideturtle()
 
     # disks[peg].append(disk)
     return disk
@@ -108,6 +109,20 @@ def move_disk(disk_size, start, end):
     new_disk = draw_disk(end, disk_size)
     disks[end].append(new_disk)
     turtle.update()
+    
+def print_info(n, start, end):
+    info = f"Moved disk {n} from peg {start} to {end}"
+    writer = turtle.Turtle()
+    writer.hideturtle()
+    writer.color("white")
+    writer.penup()
+    writer.goto(-150, -295)
+
+    writer.pendown()
+    writer.write(info, font=25)
+    writer.hideturtle()
+
+    return writer # returning the writer so that it can be cleared be calling the function again
 
 # get unique color for each disks
 def get_unique_color(size):
@@ -141,4 +156,6 @@ def main():
     turtle.tracer(1, 0) # ensures the screen updates after each movement
     turtle.done()
 
-main()
+
+if __name__ == "__main__":
+    main()
