@@ -17,7 +17,7 @@ def toh(n, start, end, aux): # from start -> end with the help of aux peg
         # move the nth disk from start peg to end peg
         sleep(1) # to visualize what is happening on the screen lol!
         move_disk(n, start, end)
-        print(f"Moved {n} from disk {start} to {end}")
+        print(f"Moved disk {n} from peg {start} to {end}")
 
         # move the n-1 discs from aux to end peg
         toh(n-1, aux, end, start)
