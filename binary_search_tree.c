@@ -117,6 +117,7 @@ void main() {
 
             case 11: // exit
             printf("Exitting program...\n");
+            free(&root);
             exit(0);
 
             default:
